@@ -12,19 +12,6 @@ class ELevel(Enum):
 	error = 6
 
 
-# class LogEntry:
-	# def __init__(
-		# self, 
-		# time,
-		# level, 
-		# ndc_list, 
-		# message
-	# ):
-		# self.time = time
-		# self.level = level
-		# self.ndc_list = ndc_list
-		# self.message = message
-
 class LoggerBackendConsole:
 	def log(self, time, level, ndc_list, message):
 		time_str = time.strftime('%Y-%m-%d %H:%M:%S.%fZ')
@@ -44,6 +31,7 @@ class LoggerBackendConsole:
 		)
 		print(s)
 
+
 class Lock:
 	def __init__(self, mutex):
 		self.mutex = mutex 
@@ -53,6 +41,7 @@ class Lock:
 
 	def __exit__(self, type, value, traceback):
 		self.mutex.release()
+
 
 class Logger:
 	def __init__(self, backend_list):
