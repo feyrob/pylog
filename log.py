@@ -1,5 +1,9 @@
 import datetime
 import threading
+try:
+	import thread
+except:
+	pass
 from enum import Enum
 
 
@@ -10,6 +14,13 @@ class ELevel(Enum):
 	notice = 4
 	warning = 5
 	error = 6
+
+def get_thread_ident():
+	try:
+		thread_ident = thread.get_ident()
+	except:
+		thread_ident = threading.get_ident()
+	return thread_ident
 
 
 class LoggerBackendConsole:
@@ -52,7 +63,7 @@ class Logger:
 		self.mutex = threading.Lock()
 
 	def _get_thread_id(self):
-		thread_ident = threading.get_ident()
+		thread_ident = get_thread_ident()
 		thread_id = self.thread_ident_to_id.get(thread_ident)
 		if thread_id is None:
 			thread_id = str(self.next_thread_id)
