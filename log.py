@@ -25,7 +25,9 @@ def get_thread_ident():
 
 class LoggerBackendConsole:
 	def log(self, time, level, ndc_list, message):
-		time_str = time.strftime('%Y-%m-%d %H:%M:%S.%fZ')
+		time_str = time.strftime('%Y-%m-%d %H:%M:%S.%f')
+		time_str = time_str[0:-3]
+		time_str = time_str + 'Z'
 		max_level_str_length = 7
 		level_str = level.name.ljust(max_level_str_length)
 		attention_str = ' '
@@ -33,7 +35,7 @@ class LoggerBackendConsole:
 			attention_str = '!'
 		ndc_str = '/'.join(ndc_list)
 		ndc_str = '/' + ndc_str
-		s = '{} {} {} {}  {}'.format(
+		s = '{} {}{} {}  {}'.format(
 			time_str,
 			attention_str,
 			level_str,
